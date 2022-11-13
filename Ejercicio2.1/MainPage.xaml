@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters = "clr-namespace:Ejercicio2._1.Converters"
+             x:Class= "Ejercicio2._1.MainPage">
+
+    <ContentPage.Resources>
+        <converters:UrlToImageSourceConverter x:Key="ImageSrcConverter" />
+    </ContentPage.Resources>
+
+    <StackLayout Padding="10,10,10,0">
+
+        <Grid Margin="5,0" Padding="0,0">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="75"/>
+                <ColumnDefinition Width="35"/>
+            </Grid.ColumnDefinitions>
+
+            <Picker x:Name="pickerRegion"
+                Title="Seleccione una region"
+                TitleColor="Black"
+                SelectedIndexChanged="pickerRegion_SelectedIndexChanged"
+                Grid.Column="0"
+                HorizontalOptions="Fill"
+                >
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Africa</x:String>
+                        <x:String>America</x:String>
+                        <x:String>Asia</x:String>
+                        <x:String>Europe</x:String>
+                        <x:String>Oceania</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+            <Label FontSize="20" Grid.Column="1" Text="Results: "  VerticalOptions="Center" HorizontalOptions="End"/>
+            <Label FontSize="20" Grid.Column="2" Text="{Binding Count}"  VerticalOptions="Center" HorizontalOptions="Start" TextColor="red"/>
+        </Grid>
+
+
+        <ListView x:Name="listCountries" 
+                  ItemTapped="listCountries_ItemTapped"
+                  HasUnevenRows="True"
+                  ItemsSource="{Binding Countries}"
+                  >
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Margin="0,0,0,5" Padding="0,5,0,0">
+
+
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="40" />
+                            </Grid.ColumnDefinitions>
+
+
+                            <Image Source="{Binding flags.svg, Converter={StaticResource ImageSrcConverter}}" 
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   Grid.Column="0"
+                                           />
+
+                            <Label Grid.Column="1" 
+                                       Text="{Binding NameCountry.common}"
+                                        />
+
+                            <Label Grid.Column="2" 
+                                   HorizontalTextAlignment="End"
+                                       Text="{Binding CodeCountry}"
+                                        />
+
+
+                        </Grid>
+
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+        </ListView>
+
+    </StackLayout>
+
+</ContentPage>
